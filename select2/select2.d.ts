@@ -25,10 +25,11 @@ interface Select2AjaxOptions {
     */
     url?: any;
     dataType?: string;
-    quietMillis?: number;
+    delay?: number;
     cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
+    processResults?:(data: any, params: any) => any;
 }
 
 interface IdTextPair {
@@ -42,7 +43,7 @@ interface Select2Options {
     minimumInputLength?: number;
     minimumResultsForSearch?: number;
     maximumSelectionSize?: number;
-    placeholder?: string;
+    placeholder?: string | IdTextPair;
     separator?: string;
     allowClear?: boolean;
     multiple?: boolean;
@@ -77,7 +78,8 @@ interface Select2Options {
     */
     templateSelection?: (object: Select2SelectionObject) => any;
     templateResult?: (object: Select2SelectionObject) => any;
-	language?: string;
+    language?: string | string[] | {};
+    selectOnClose?: boolean;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -91,13 +93,13 @@ interface Select2JQueryEventObject extends JQueryEventObject {
 }
 
 interface Select2SelectionObject {
-	loading: boolean,
-    disabled: boolean,
-    element: HTMLOptionElement,
-    id: string,
-    selected: boolean,
-    text: string,
-    title: string,
+    loading: boolean;
+    disabled: boolean;
+    element: HTMLOptionElement;
+    id: string;
+    selected: boolean;
+    text: string;
+    title: string;
 }
 
 interface JQuery {

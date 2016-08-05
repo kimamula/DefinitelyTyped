@@ -32,7 +32,7 @@ interface PDFPromise<T> {
 	isRejected(): boolean;
 	resolve(value: T): void;
 	reject(reason: string): void;
-	then(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
+	then<U>(onResolve: (promise: T) => U, onReject?: (reason: string) => void): PDFPromise<U>;
 }
 
 interface PDFTreeNode {
@@ -195,6 +195,7 @@ interface PDFRenderImageLayer {
 
 interface PDFRenderParams {
 	canvasContext: CanvasRenderingContext2D;
+	viewport?: PDFPageViewport;
 	textLayer?: PDFRenderTextLayer;
 	imageLayer?: PDFRenderImageLayer;
 	continueCallback?: (_continue: () => void) => void;

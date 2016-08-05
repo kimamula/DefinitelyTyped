@@ -52,6 +52,8 @@ declare namespace uri {
         is(qry: string): boolean;
         iso8859(): URI;
 
+        joinPaths(...paths: (string | URI)[]): URI;
+
         normalize(): URI;
         normalizeFragment(): URI;
         normalizeHash(): URI;
@@ -62,6 +64,9 @@ declare namespace uri {
         normalizeProtocol(): URI;
         normalizeQuery(): URI;
         normalizeSearch(): URI;
+
+        origin(): string;
+        origin(uri: string | URI): URI;
 
         password(): string;
         password(pw: string): URI;
@@ -105,6 +110,8 @@ declare namespace uri {
         setQuery(qry: Object): URI;
         setSearch(key: string, value: string): URI;
         setSearch(qry: Object): URI;
+        hasQuery(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
+        hasSearch(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
         subdomain(): string;
         subdomain(subdomain: string): URI;
         suffix(): string;

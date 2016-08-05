@@ -307,7 +307,7 @@ declare namespace moment {
         isAfter(b: MomentComparable, granularity?: string): boolean;
 
         isSame(b: MomentComparable, granularity?: string): boolean;
-        isBetween(a: MomentComparable, b: MomentComparable, granularity?: string): boolean;
+        isBetween(a: MomentComparable, b: MomentComparable, granularity?: string, inclusivity?: string): boolean;
 
         /**
          * @since 2.10.7+
@@ -571,6 +571,12 @@ declare namespace moment {
         yy: any;
     }
 
+    interface MomentBuiltinFormat {
+        __momentBuiltinFormatBrand: any;
+    }
+
+    type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
+
     interface MomentStatic {
         version: string;
         fn: Moment;
@@ -578,14 +584,8 @@ declare namespace moment {
         (): Moment;
         (date: number): Moment;
         (date: number[]): Moment;
-        (date: string, format?: string, strict?: boolean): Moment;
-        (date: string, format?: string, language?: string, strict?: boolean): Moment;
-        (date: string, formats: string[], strict?: boolean): Moment;
-        (date: string, formats: string[], language?: string, strict?: boolean): Moment;
-        (date: string, specialFormat: () => void, strict?: boolean): Moment;
-        (date: string, specialFormat: () => void, language?: string, strict?: boolean): Moment;
-        (date: string, formatsIncludingSpecial: any[], strict?: boolean): Moment;
-        (date: string, formatsIncludingSpecial: any[], language?: string, strict?: boolean): Moment;
+        (date: string, format?: MomentFormatSpecification, strict?: boolean): Moment;
+        (date: string, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
         (date: Date): Moment;
         (date: Moment): Moment;
         (date: Object): Moment;
@@ -605,10 +605,10 @@ declare namespace moment {
 
         invalid(parsingFlags?: Object): Moment;
         isMoment(): boolean;
-        isMoment(m: any): boolean;
-        isDate(m: any): boolean;
+        isMoment(m: any): m is Moment;
+        isDate(m: any): m is Date;
         isDuration(): boolean;
-        isDuration(d: any): boolean;
+        isDuration(d: any): d is Duration;
 
         /**
          * @deprecated since version 2.8.0
@@ -675,7 +675,7 @@ declare namespace moment {
         /**
          * Constant used to enable explicit ISO_8601 format parsing.
          */
-        ISO_8601(): void;
+        ISO_8601: MomentBuiltinFormat;
 
         defaultFormat: string;
     }
@@ -683,6 +683,11 @@ declare namespace moment {
 }
 
 declare module 'moment' {
+    var moment: moment.MomentStatic;
+    export = moment;
+}
+
+declare module 'moment/moment' {
     var moment: moment.MomentStatic;
     export = moment;
 }
