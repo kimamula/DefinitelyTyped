@@ -78,11 +78,18 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
             this.replaceState(this.getInitialState());
         },
         render() {
-            return React.DOM.div(null,
-                React.DOM.input({
-                    ref: input => this._input = input,
-                    value: this.state.inputValue
-                }));
+            switch('') {
+                case 'null':
+                    return null;
+                case 'false':
+                    return false;
+                default:
+                    return React.DOM.div(null,
+                      React.DOM.input({
+                          ref: input => this._input = input,
+                          value: this.state.inputValue
+                      }));
+            }
         }
     });
 
@@ -126,11 +133,18 @@ class ModernComponent extends React.Component<Props, State>
     private _input: HTMLInputElement;
 
     render() {
-        return React.DOM.div(null,
-            React.DOM.input({
-                ref: input => this._input = <HTMLInputElement>input,
-                value: this.state.inputValue
-            }));
+        switch('') {
+            case 'null':
+                return null;
+            case 'false':
+                return false;
+            default:
+                return React.DOM.div(null,
+                  React.DOM.input({
+                      ref: input => this._input = <HTMLInputElement>input,
+                      value: this.state.inputValue
+                  }));
+        }
     }
 
     shouldComponentUpdate(nextProps: Props, nextState: State, nextContext: any): boolean {

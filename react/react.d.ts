@@ -164,7 +164,7 @@ declare namespace __React {
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(callback?: () => any): void;
-        render(): JSX.Element;
+        render(): JSX.Element | null | false;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -178,7 +178,7 @@ declare namespace __React {
             [key: string]: ReactInstance
         };
     }
-    
+
     class PureComponent<P, S> extends Component<P, S> {}
 
     interface ClassicComponent<P, S> extends Component<P, S> {
@@ -258,7 +258,7 @@ declare namespace __React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any>;
+        render(): ReactElement<any> | null | false;
 
         [propertyName: string]: any;
     }
@@ -2357,9 +2357,7 @@ declare namespace JSX {
     import React = __React;
 
     interface Element extends React.ReactElement<any> { }
-    interface ElementClass extends React.Component<any, any> {
-        render(): JSX.Element;
-    }
+    interface ElementClass extends React.Component<any, any> { }
     interface ElementAttributesProperty { props: {}; }
 
     interface IntrinsicAttributes extends React.Attributes { }
